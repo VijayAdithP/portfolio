@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/Constants/Colors.dart';
+import 'package:my_portfolio/Screens/Presentation/widget/cursor_glow_widget.dart';
 
 class WebHome extends StatefulWidget {
   const WebHome({super.key});
@@ -10,6 +12,13 @@ class WebHome extends StatefulWidget {
 class _WebHomeState extends State<WebHome> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text("Web")));
+    return Scaffold(
+      backgroundColor: CustomColors.primaryBackground,
+      body: AnimatedCursorTrail(
+        child: Center(
+          child: Text("Web", style: TextStyle(color: CustomColors.primaryText)),
+        ),
+      ),
+    );
   }
 }

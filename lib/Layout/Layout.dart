@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/Constants/CursorGlow.dart';
 import 'package:my_portfolio/Screens/MobileHome.dart';
+import 'package:my_portfolio/Screens/Presentation/widget/cursor_glow_widget.dart';
 import 'package:my_portfolio/Screens/WebHome.dart';
 
 class Layout extends StatefulWidget {
@@ -14,9 +16,9 @@ class _LayoutState extends State<Layout> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if(constraints.minWidth < 750){
+        if (constraints.minWidth < 750) {
           return MobileHome();
-        }else{
+        } else {
           return WebHome();
         }
       },
