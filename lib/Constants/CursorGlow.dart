@@ -16,7 +16,7 @@ class CursorGlowState extends State<CursorGlow> {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: CustomColors.primaryHighlight.withValues(alpha: 0.2),
+            color: CustomColors.primaryGlow.withValues(alpha: 0.2),
             spreadRadius: -10,
             blurRadius: 1000,
           ),
