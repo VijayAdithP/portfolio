@@ -1,79 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_portfolio/Constants/Colors.dart';
+import 'package:my_portfolio/Screens/Presentation/section/content_section.dart';
+import 'package:my_portfolio/Screens/Presentation/section/desc_section.dart';
 import 'package:my_portfolio/Screens/Presentation/widget/cursor_glow_widget.dart';
+import 'package:my_portfolio/providers/cursor/cursor_pos_provider.dart';
 
-class WebHome extends StatefulWidget {
+class WebHome extends ConsumerStatefulWidget {
   const WebHome({super.key});
 
   @override
-  State<WebHome> createState() => _WebHomeState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _WebHomeState();
 }
 
-class _WebHomeState extends State<WebHome> {
+class _WebHomeState extends ConsumerState<WebHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.primaryBackground,
-      body: AnimatedCursorTrail(
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Container(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'This is the static side of the screen.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Icon(Icons.info_outline, size: 50, color: Colors.blue),
-                    SizedBox(height: 10),
-                    Text(
-                      'It will not scroll, regardless of its content size.',
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: ListView.builder(
-                
-                itemCount: 50, // Example item count
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text('List Item $index'),
-                    subtitle: Text('Details for item $index'),
-                  );
-                },
-              ),
-            ),
-          ],
+      body: Listener(
+        behavior: HitTestBehavior.translucent,
+        onPointerHover: (event) {
+          ref
+              .read(cursorProvider.notifier)
+              .updateCursorPosition(event.position);
+        },
+        onPointerMove: (event) {
+          ref
+              .read(cursorProvider.notifier)
+              .updateCursorPosition(event.position);
+        },
+        child: AnimatedCursorTrail(
+          child: Row(
+            children: [
+              Expanded(flex: 1, child: DescSection()),
+              Expanded(flex: 1, child: ContentSection()),
+            ],
+          ),
         ),
-        // CustomScrollView(
-        //   slivers: <Widget>[
-        //     SliverFixedExtentList(
-        //       delegate: SliverChildListDelegate.fixed([Placeholder()]),
-        //       itemExtent: 1,
-        //     ),
-        //     SliverList(
-        //       delegate: SliverChildListDelegate([
-        //         Container(color: Colors.pink, height: 150.0),
-        //         Container(color: Colors.cyan, height: 150.0),
-        //         Container(color: Colors.indigo, height: 150.0),
-        //         Container(color: Colors.blue, height: 150.0),
-        //       ]),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

@@ -13,17 +13,6 @@ class AnimatedCursorTrail extends ConsumerWidget {
     final cursor = ref.watch(cursorProvider);
     return Stack(
       children: [
-        Positioned.fill(
-          child: MouseRegion(
-            onHover: (event) {
-              ref
-                  .read(cursorProvider.notifier)
-                  .updateCursorPosition(event.position);
-            },
-            opaque: false,
-          ),
-        ),
-
         AnimatedPositioned(
           left: cursor.offset.dx - cursor.size.width / 2,
           top: cursor.offset.dy - cursor.size.height / 2,
